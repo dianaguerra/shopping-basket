@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# Shopping Basket with Redux & Redux Toolkit
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Task Description
 
-## Available Scripts
+You are creating an e-commerce application and need to implement basket functionality in Redux.
+Products can be added to and removed from the basket. If they already exist in the basket, their quantities should be modied accordingly –
+increasing when adding a product again and decreasing when trying to remove a product.
+The part responsible for layout - the basket component - is already done. Your task is to implement the Redux-related parts to ensure that
+everything is working ne. The parts are: a basket reducer, actions and connecting a basket component with the Redux store.
+Redux store and products
 
-In the project directory, you can run:
+The Redux store has the following schema:
 
-### `npm start`
+{ 
+    "basket": { 
+        "products": [] 
+    }
+}
+
+Each product takes the following shape:
+
+{ 
+    "id": string, 
+    "name": string, 
+    "quantity": number, 
+    "price": number, 
+} 
+
+The Redux store is created and connected with the reducer in the background.
+
+## Actions
+
+There are two action creators dened in the project: addProductToBasket and removeProductFromBasket.
+addProductToBasket accepts product as a single parameter. product is an object of the shape described in the Redux store and
+products section above. This action creator returns an action of the ADD_PRODUCT_TO_BASKET type.
+removeProductFromBasket accepts productId as a single parameter. productId is a number, as described in the product object
+denition above (product.id).
+Your task here is to set the type of an action created by removeProductFromBasket to REMOVE_PRODUCT_FROM_BASKET.
+
+## Basket reducer
+
+The basket reducer should handle the two actions mentioned above (of the types: ADD_PRODUCT_TO_BASKET and
+REMOVE_PRODUCT_FROM_BASKET).
+The ADD_PRODUCT_TO_BASKET handler should behave in the following way:
+if the product is added for the rst time, it should be added with a quantity equal to 1;
+if the product already exists in the basket, its quantity should be increased by 1.
+Similarly, REMOVE_PRODUCT_FROM_BASKET handler should be implemented so that:
+if a product's quantity is equal to 1, it should be removed from the basket products list;
+if a product's quantity is greater than 1, it should be decremented by 1.
+
+## Basket component
+
+The basket component is already implemented and working as expected. Your task is to connect it with the Redux store and pass three props: products, totalPrice and an onRemove handler:
+
+products should be the list of products taken directly from the store;
+totalPrice should be calculated based on the list of products;
+onRemove is a handler accepting a productId parameter, and should dispatch the removeProductFromBasket action.
+
+## Libraries
+
+The project uses the following libraries:
+
+react: 16.3.1,
+react-redux: 7.2.0,
+redux: 4.0.5.
+
+### Usage
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
